@@ -1,4 +1,3 @@
-// src/features/songs/songSaga.js
 import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import {
@@ -21,7 +20,7 @@ import {
 
 function* fetchSongs() {
   try {
-    const response = yield call(axios.get, 'http://localhost:3001/api/songs');
+    const response = yield call(axios.get, 'https://song-app-bakend.vercel.app:3001/api/songs');
     yield put(fetchSongsSuccess(response.data));
   } catch (error) {
     yield put(fetchSongsFailure(error.message));
@@ -34,7 +33,7 @@ function* uploadSong(action) {
     formData.append('title', action.payload.title);
     formData.append('file', action.payload.file);
 
-    const response = yield call(axios.post, 'http://localhost:3001/api/songs', formData, {
+    const response = yield call(axios.post, 'https://song-app-bakend.vercel.app:3001/api/songs', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -56,7 +55,7 @@ function* updateSong(action) {
       formData.append('file', action.payload.file);
     }
 
-    const response = yield call(axios.put, `http://localhost:3001/api/songs/${action.payload.id}`, formData, {
+    const response = yield call(axios.put, `https://song-app-bakend.vercel.app:3001/api/songs/${action.payload.id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -69,7 +68,7 @@ function* updateSong(action) {
 
 function* deleteSong(action) {
   try {
-    yield call(axios.delete, `http://localhost:3001/api/songs/${action.payload}`);
+    yield call(axios.delete, `https://song-app-bakend.vercel.app:3001/api/songs/${action.payload}`);
     yield put(deleteSongSuccess(action.payload));
   } catch (error) {
     yield put(deleteSongFailure(error.message));
@@ -79,7 +78,7 @@ function* deleteSong(action) {
 
 function* clearSongs() {
   try {
-    yield call(axios.delete, 'http://localhost:3001/api/songs');
+    yield call(axios.delete, 'https://song-app-bakend.vercel.app:3001/api/songs');
     yield put(clearSongsSuccess());
   } catch (error) {
     yield put(clearSongsFailure(error.message));
