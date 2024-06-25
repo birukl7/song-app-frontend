@@ -18,9 +18,12 @@ import {
   clearSongsFailure,
 } from './songSlice';
 
+// Base API URL without port
+const API_BASE_URL = 'https://song-app-backend.vercel.app'; 
+
 function* fetchSongs() {
   try {
-    const response = yield call(axios.get, 'https://song-app-bakend.vercel.app:3001/api/songs');
+    const response = yield call(axios.get, `${API_BASE_URL}/api/songs`);
     yield put(fetchSongsSuccess(response.data));
   } catch (error) {
     yield put(fetchSongsFailure(error.message));
@@ -33,13 +36,14 @@ function* uploadSong(action) {
     formData.append('title', action.payload.title);
     formData.append('file', action.payload.file);
 
-    const response = yield call(axios.post, 'https://song-app-bakend.vercel.app:3001/api/songs', formData, {
+    const response = yield call(axios.post, `${API_BASE_URL}/api/songs`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
     yield put(uploadSongSuccess(response.data));
   } catch (error) {
+    console.error('Upload song error:', error);
     yield put(uploadSongFailure(error.message));
   }
 }
@@ -47,7 +51,7 @@ function* uploadSong(action) {
 function* updateSong(action) {
   try {
     const formData = new FormData();
-    if(action.payload.title){
+    if (action.payload.title) {
       formData.append('title', action.payload.title);
     }
     
@@ -55,32 +59,34 @@ function* updateSong(action) {
       formData.append('file', action.payload.file);
     }
 
-    const response = yield call(axios.put, `https://song-app-bakend.vercel.app:3001/api/songs/${action.payload.id}`, formData, {
+    const response = yield call(axios.put, `${API_BASE_URL}/api/songs/${action.payload.id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
     yield put(updateSongSuccess(response.data));
   } catch (error) {
+    console.error('Update song error:', error);
     yield put(updateSongFailure(error.message));
   }
 }
 
 function* deleteSong(action) {
   try {
-    yield call(axios.delete, `https://song-app-bakend.vercel.app:3001/api/songs/${action.payload}`);
+    yield call(axios.delete, `${API_BASE_URL}/api/songs/${action.payload}`);
     yield put(deleteSongSuccess(action.payload));
   } catch (error) {
+    console.error('Delete song error:', error);
     yield put(deleteSongFailure(error.message));
-    console.log(error.message);
   }
 }
 
 function* clearSongs() {
   try {
-    yield call(axios.delete, 'https://song-app-bakend.vercel.app:3001/api/songs');
+    yield call(axios.delete, `${API_BASE_URL}/api/songs`);
     yield put(clearSongsSuccess());
   } catch (error) {
+    console.error('Clear songs error:', error);
     yield put(clearSongsFailure(error.message));
   }
 }
@@ -94,3 +100,4 @@ function* songSaga() {
 }
 
 export default songSaga;
+ 
