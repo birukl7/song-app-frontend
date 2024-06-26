@@ -139,11 +139,11 @@ function SongListContainer({
             </svg>
           )}
         </PlayButton>
-        <EditButton
+        {/*<EditButton
           onClick={onClickUpdate}
         >
           Edit
-        </EditButton>
+          </EditButton>*/}
         <DeleteButton
           onClick={onClickDelete}
         >
