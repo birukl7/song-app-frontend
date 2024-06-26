@@ -15,7 +15,7 @@ const PlayerContainer = styled.div`
   top: 10px;
   z-index: 30;
   @media (max-width: 768px) {
-    width: 320px;
+    width: 300px;
   }
   
 `;
