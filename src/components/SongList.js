@@ -172,12 +172,6 @@ const SongList = () => {
     console.log(list)
   };
 
-  const trendingNewHit = [{
-    title: "In My Feelings",
-    artistName: "Camilla Cabello",
-    onClick: () => { },
-    imageUrl: imageHome
-  }];
 
   const getRandomSongFromList = () => {
     if (list.length > 0) {

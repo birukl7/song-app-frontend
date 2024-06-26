@@ -18,12 +18,19 @@ import {
   clearSongsFailure,
 } from './songSlice';
 
-// Base API URL without port
-const API_BASE_URL = 'https://song-app-backend.vercel.app'; 
+
+const API_BASE_URL = 'https://song-app-bakend.vercel.app';
+
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
 function* fetchSongs() {
   try {
-    const response = yield call(axios.get, `${API_BASE_URL}/api/songs`);
+    const response = yield call(axiosInstance.get, `${API_BASE_URL}/api/songs`);
     yield put(fetchSongsSuccess(response.data));
   } catch (error) {
     yield put(fetchSongsFailure(error.message));
@@ -36,7 +43,7 @@ function* uploadSong(action) {
     formData.append('title', action.payload.title);
     formData.append('file', action.payload.file);
 
-    const response = yield call(axios.post, `${API_BASE_URL}/api/songs`, formData, {
+    const response = yield call(axiosInstance.post, '/api/songs', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -54,12 +61,12 @@ function* updateSong(action) {
     if (action.payload.title) {
       formData.append('title', action.payload.title);
     }
-    
+
     if (action.payload.file) {
       formData.append('file', action.payload.file);
     }
 
-    const response = yield call(axios.put, `${API_BASE_URL}/api/songs/${action.payload.id}`, formData, {
+    const response = yield call(axiosInstance.put, `/api/songs/${action.payload.id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -73,7 +80,7 @@ function* updateSong(action) {
 
 function* deleteSong(action) {
   try {
-    yield call(axios.delete, `${API_BASE_URL}/api/songs/${action.payload}`);
+    yield call(axiosInstance.delete, `${API_BASE_URL}/api/songs/${action.payload}`);
     yield put(deleteSongSuccess(action.payload));
   } catch (error) {
     console.error('Delete song error:', error);
@@ -83,7 +90,7 @@ function* deleteSong(action) {
 
 function* clearSongs() {
   try {
-    yield call(axios.delete, `${API_BASE_URL}/api/songs`);
+    yield call(axiosInstance.delete, '/api/songs');
     yield put(clearSongsSuccess());
   } catch (error) {
     console.error('Clear songs error:', error);
@@ -100,4 +107,3 @@ function* songSaga() {
 }
 
 export default songSaga;
- 
