@@ -11,6 +11,11 @@ const NavigationBar = styled.div`
   right: 85%;
   z-index: 10;
   background-color:#19181D;
+
+    @media (max-width: 768px) {
+    display: none;
+    overflow: hidden;
+  }
 `;
 
 const LinkContainer = styled.div`

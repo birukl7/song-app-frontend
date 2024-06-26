@@ -39,6 +39,11 @@ const ImageContainer = styled.div`
   background-repeat: no-repeat;
   border-radius: 10px;
   margin-right: 40px;
+
+    @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 const SongInfoContainer = styled.div`
@@ -50,6 +55,17 @@ const ListenNowButton = styled.button`
   display: flex;
   alignItems: center;
   gap: 20px;
+  
+
+    @media (max-width: 768px) {
+    gap: 5px;
+  }
+`;
+
+const SongTitle = styled.h1`
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
 `;
 
 function InFeelings({ song, onListenNow, onNextSong }) {
@@ -64,7 +80,7 @@ function InFeelings({ song, onListenNow, onNextSong }) {
       <div>
         <p>Trending Hit</p>
         <div>
-          <h1>{song ? song.songName : 'In My Feelings'}</h1>
+          <SongTitle>{song ? song.songName : 'In My Feelings'}</SongTitle>
           <p>{song ? song.artistName : 'Camilla Cabello'}</p>
 
 

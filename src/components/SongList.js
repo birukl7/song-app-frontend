@@ -24,6 +24,10 @@ const Container = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
+  @media(max-width: 768px){
+    padding-left: 5%;
+  }
 `;
 
 const List = styled.li`
@@ -35,16 +39,28 @@ const List = styled.li`
 const MiddleContainer = styled.div`
   display: flex;
   gap: 30px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const SubMiddleContainer = styled.div`
   width: 60%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const SongFormContainerDiv = styled.div`
   display: flex;
   gap: 20px;
   margin-top: 30px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const SongInnerContainer = styled.div`
@@ -136,13 +152,13 @@ const SongList = () => {
     }
 
     setCurrentSong({
-      songName: song.title || song.songTitle,
-      artistName: song.artist || song.artistName,
+      songName: song.title || 'Unknown Title',
+      artistName: song.artist || 'Unknown Artist',
       albumTitle: song.album || 'Unknown Album',
       audioSrc: song.fileUrl,
-      imageSrc: song.albumArtUrl || song.imageSrc,
+      imageSrc: song.albumArtUrl || imageHome,
       songDuration: formatDuration(song.duration),
-      songYear: song.year,
+      songYear: song.year || 'unknown Year',
       songLyrics: song.lyrics,
       songId: index + 1 // Set the custom songId
     });

@@ -14,6 +14,10 @@ const PlayerContainer = styled.div`
   position: sticky;
   top: 10px;
   z-index: 30;
+  @media (max-width: 768px) {
+    width: 320px;
+  }
+  
 `;
 
 const Controls = styled.div`

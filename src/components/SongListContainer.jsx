@@ -7,9 +7,15 @@ const SongListContain = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 50px;
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   padding: 5px 10px;
   border-radius: 10px;
+
+    @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -32,6 +38,12 @@ const ButtonContainer = styled.div`
 
   span{
     margin-top: 9px;
+  }
+
+    @media (max-width: 768px) {
+      span{
+    margin-top: 0px;
+      }
   }
 `;
 
@@ -64,6 +76,17 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `;
 
+const SongInfoContain = styled.div`
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    margin: 8px 0;
+  }
+`;
+
 function SongListContainer({
   id,
   imageSrc,
@@ -79,13 +102,7 @@ function SongListContainer({
     <SongListContain style={{
       outline: `${isPlaying? '1px solid white' : 'none' }`
     }}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-        }}
-      >
+      <SongInfoContain>
         <span>{!id ? '01' : id}</span>
         <ImageContainer
           style={{
@@ -97,13 +114,9 @@ function SongListContainer({
           <strong>{!songTitle ? 'Havana' : songTitle}</strong>
           <span>{!artistName ? 'Camila Cabelo' : artistName}</span>
         </SongInfoContainer>
-      </div>
+      </SongInfoContain>
 
-      <ButtonContainer
-        style={{
-
-        }}
-      >
+      <ButtonContainer>
         <span>{!songDuration ? '3:45' : songDuration}</span>
         <PlayButton onClick={onClick}>
           {isPlaying ? (
