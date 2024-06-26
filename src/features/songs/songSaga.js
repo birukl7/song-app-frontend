@@ -19,7 +19,7 @@ import {
 } from './songSlice';
 
 
-const API_BASE_URL = 'https://song-app-bakend.vercel.app';
+const API_BASE_URL = 'https://song-app.biruklemma.com';
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
