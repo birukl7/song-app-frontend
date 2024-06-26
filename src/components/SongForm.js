@@ -69,24 +69,42 @@ const SongForm = ({ songToEdit, setSongToEdit }) => {
 
   useEffect(() => {
     if (songToEdit) {
-
+      // Reset file when songToEdit changes
     } else {
-      
       setFile(null);
     }
   }, [songToEdit]);
 
   const onDrop = (acceptedFiles) => {
-    setFile(acceptedFiles[0]);
+    const file = acceptedFiles[0];
+    if (file) {
+      if (!file.type.startsWith('audio/')) {
+        alert('Please upload a valid audio file');
+        setFile(null);
+        return;
+      }
+
+      if (file.size > 10 * 1024 * 1024) { // 10MB in bytes
+        alert('File size should not exceed 10MB');
+        setFile(null);
+        return;
+      }
+
+      setFile(file);
+    }
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: 'audio/*',
     onDrop,
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!file) {
+      alert('Please upload a file before submitting');
+      return;
+    }
+
     if (songToEdit) {
       dispatch(updateSongRequest({ id: songToEdit.id, file }));
       window.location.reload();

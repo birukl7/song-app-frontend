@@ -187,7 +187,7 @@ const SongList = () => {
   };
 
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Loading/uploading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
